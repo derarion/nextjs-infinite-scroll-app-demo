@@ -2,6 +2,11 @@
   "name": "nextjs-inifinite-scroll-app-demo",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.17.0",
+  "engines": {
+    "node": "22.20.0",
+    "pnpm": "10.17.0"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
