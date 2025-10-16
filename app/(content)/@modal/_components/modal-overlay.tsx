@@ -41,7 +41,7 @@ export function ModalOverlay({ children }: { children: React.ReactNode }) {
       </Button>
       <DialogContent
         ref={contentRef}
-        className="max-w-4xl md:max-w-5xl lg:max-w-6xl max-h-[90vh] overflow-y-auto"
+        className="h-[85vh] !top-auto !bottom-0 !translate-y-0 rounded-t-xl rounded-b-none sm:h-auto sm:!top-[50%] sm:!bottom-auto sm:!translate-y-[-50%] sm:rounded-lg max-w-4xl md:max-w-5xl lg:max-w-6xl max-h-[90vh] overflow-y-auto"
         showCloseButton={false}
       >
         <VisuallyHidden>
