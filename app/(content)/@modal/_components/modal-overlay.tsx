@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { Dialog, DialogContent, DialogTitle } from "@/app/_components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/app/_components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/app/_components/ui/button";
@@ -46,6 +46,7 @@ export function ModalOverlay({ children }: { children: React.ReactNode }) {
       >
         <VisuallyHidden>
           <DialogTitle>Product Details</DialogTitle>
+          <DialogDescription>View product information and details</DialogDescription>
         </VisuallyHidden>
         {children}
       </DialogContent>
