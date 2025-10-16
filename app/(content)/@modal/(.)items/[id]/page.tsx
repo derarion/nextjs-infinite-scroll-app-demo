@@ -32,9 +32,11 @@ export default async function ModalProductPage({ params }: ModalProductPageProps
 
         {/* Product Info */}
         <div className="flex flex-col">
-          <Badge className="mb-3 w-fit" variant="secondary">
-            {product.category}
-          </Badge>
+          <a href={`/categories/${encodeURIComponent(product.category)}`}>
+            <Badge className="mb-3 w-fit hover:bg-secondary/80 cursor-pointer" variant="secondary">
+              {product.category}
+            </Badge>
+          </a>
           <h1 className="text-2xl md:text-3xl font-bold mb-2">{product.name}</h1>
           <p className="text-sm text-muted-foreground mb-4">by {product.brand}</p>
 
