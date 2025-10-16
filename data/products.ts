@@ -16,12 +16,20 @@ export const products: Product[] = Array.from({ length: 120 }, (_, i) => {
   const brand = brands[i % brands.length];
   const colors = colorOptions[i % colorOptions.length];
 
+  // Generate deterministic color based on product ID (same color every time for same product)
+  const hash = parseInt(id) * 2654435761; // Simple hash function
+  const randomColor = (hash % 16777215).toString(16).padStart(6, "0");
+
   // Generate multiple images for carousel
   const imageCount = 3 + Math.floor(Math.random() * 3); // 3-5 images
-  const images = Array.from(
-    { length: imageCount },
-    (_, idx) => `https://placehold.co/800x800/e5e5e5/525252?text=Product+${id}+Image+${idx + 1}`
-  );
+  const images = Array.from({ length: imageCount }, (_, idx) => {
+    if (idx === 0) {
+      // First image with random color
+      return `https://placehold.co/800x800/${randomColor}/ffffff?text=Product+${id}`;
+    }
+    // Other images with default gray
+    return `https://placehold.co/800x800/e5e5e5/525252?text=Product+${id}+Image+${idx + 1}`;
+  });
 
   return {
     id,
