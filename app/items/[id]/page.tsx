@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Star, Package, Truck, Shield, ShoppingCart } from "lucide-react";
-import { products } from "@/data/products";
+import { getProducts, getProductById, getRelatedProducts } from "@/lib/api";
 import { Header } from "@/app/_components/header";
 import { Footer } from "@/app/_components/footer";
 import { Card, CardContent } from "@/app/_components/ui/card";
@@ -15,6 +15,8 @@ interface ProductPageProps {
 }
 
 export async function generateStaticParams() {
+  // Fetch all products at build time (SSG)
+  const products = await getProducts();
   return products.map((product) => ({
     id: product.id,
   }));
@@ -22,16 +24,16 @@ export async function generateStaticParams() {
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;
-  const product = products.find((p) => p.id === id);
+
+  // Fetch product by ID at build time (SSG)
+  const product = await getProductById(id);
 
   if (!product) {
     notFound();
   }
 
-  // Get related products (same category, exclude current)
-  const relatedProducts = products
-    .filter((p) => p.category === product.category && p.id !== product.id)
-    .slice(0, 4);
+  // Fetch related products at build time (SSG)
+  const relatedProducts = await getRelatedProducts(product.category, product.id, 4);
 
   return (
     <div className="min-h-screen bg-background">

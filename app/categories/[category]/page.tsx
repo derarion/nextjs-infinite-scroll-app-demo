@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { products } from "@/data/products";
+import { getCategories, getProductsByCategory } from "@/lib/api";
 import { Header } from "@/app/_components/header";
 import { Footer } from "@/app/_components/footer";
 import { ProductList } from "@/app/_components/product-list";
@@ -12,7 +12,8 @@ interface CategoryPageProps {
 }
 
 export async function generateStaticParams() {
-  const categories = Array.from(new Set(products.map((p) => p.category)));
+  // Fetch categories at build time (SSG)
+  const categories = await getCategories();
   return categories.map((category) => ({
     category: encodeURIComponent(category),
   }));
@@ -22,7 +23,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category } = await params;
   const decodedCategory = decodeURIComponent(category);
 
-  const filteredProducts = products.filter((p) => p.category === decodedCategory);
+  // Fetch products by category at build time (SSG)
+  const filteredProducts = await getProductsByCategory(decodedCategory);
 
   if (filteredProducts.length === 0) {
     notFound();

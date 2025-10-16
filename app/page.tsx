@@ -1,9 +1,11 @@
-import { products } from "@/data/products";
+import { getProducts } from "@/lib/api";
 import { Header } from "@/app/_components/header";
 import { Footer } from "@/app/_components/footer";
 import { ProductList } from "@/app/_components/product-list";
 
-export default function Home() {
+export default async function Home() {
+  // Fetch products at build time (SSG)
+  const products = await getProducts();
   return (
     <div className="min-h-screen bg-background">
       <Header />
