@@ -1,6 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/app/_components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { ChevronLeft } from "lucide-react";
@@ -8,6 +9,15 @@ import { Button } from "@/app/_components/ui/button";
 
 export function ModalOverlay({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Reset scroll position when pathname changes (different product)
+    if (contentRef.current) {
+      contentRef.current.scrollTop = 0;
+    }
+  }, [pathname]);
 
   const handleOpenChange = (open: boolean) => {
     if (!open) {
@@ -30,6 +40,7 @@ export function ModalOverlay({ children }: { children: React.ReactNode }) {
         <ChevronLeft className="h-6 w-6" />
       </Button>
       <DialogContent
+        ref={contentRef}
         className="max-w-4xl md:max-w-5xl lg:max-w-6xl max-h-[90vh] overflow-y-auto"
         showCloseButton={false}
       >
