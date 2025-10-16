@@ -33,7 +33,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="relative aspect-square overflow-hidden bg-muted">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={product.image}
+              src={product.images[0]}
               alt={product.name}
               className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
             />

@@ -7,6 +7,8 @@ import { Footer } from "@/app/_components/footer";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import { Badge } from "@/app/_components/ui/badge";
 import { Button } from "@/app/_components/ui/button";
+import { ProductImageCarousel } from "@/app/_components/product-image-carousel";
+import { ProductOptions } from "@/app/_components/product-options";
 
 interface ProductPageProps {
   params: Promise<{
@@ -54,11 +56,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <section className="py-8 md:py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-            {/* Product Image */}
-            <div className="relative aspect-square overflow-hidden rounded-lg bg-muted">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={product.image} alt={product.name} className="object-cover w-full h-full" />
-            </div>
+            {/* Product Images Carousel */}
+            <ProductImageCarousel images={product.images} productName={product.name} />
 
             {/* Product Info */}
             <div className="flex flex-col">
@@ -69,6 +68,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   </Badge>
                 </Link>
                 <h1 className="text-3xl md:text-4xl font-bold mb-2">{product.name}</h1>
+                <p className="text-sm text-muted-foreground">by {product.brand}</p>
                 <div className="flex items-center gap-2 mb-4">
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
@@ -89,12 +89,21 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
               <div className="mb-6">
                 <p className="text-3xl font-bold mb-4">¥{product.price.toLocaleString()}</p>
-                <p className="text-base text-muted-foreground leading-relaxed">
+                <p className="text-base text-muted-foreground leading-relaxed mb-3">
                   {product.description}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Dimensions: {product.dimensions.width} × {product.dimensions.height} ×{" "}
+                  {product.dimensions.depth} {product.dimensions.unit}
                 </p>
               </div>
 
-              {/* Action Buttons */}
+              {/* Product Options */}
+              <div className="mb-6">
+                <ProductOptions colors={product.colors} />
+              </div>
+
+              {/* Add to Cart Button */}
               <div className="mb-8">
                 <Button size="lg" className="w-full rounded-full gap-2">
                   <ShoppingCart className="h-5 w-5" />
@@ -148,7 +157,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                       <div className="relative aspect-square overflow-hidden bg-muted">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src={relatedProduct.image}
+                          src={relatedProduct.images[0]}
                           alt={relatedProduct.name}
                           className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
                         />
