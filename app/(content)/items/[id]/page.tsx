@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Star, Package, Truck, Shield, ShoppingCart } from "lucide-react";
+import { ArrowLeft, Star, Package, Truck, Shield } from "lucide-react";
 import { getProducts, getProductById, getRelatedProducts } from "@/lib/api";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import { Badge } from "@/app/_components/ui/badge";
-import { Button } from "@/app/_components/ui/button";
 import { ProductImageCarousel } from "@/app/_components/product-image-carousel";
-import { ProductOptions } from "@/app/_components/product-options";
+import { AddToCartButton } from "@/app/_components/add-to-cart-button";
 
 interface ProductPageProps {
   params: Promise<{
@@ -94,17 +93,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </p>
               </div>
 
-              {/* Product Options */}
-              <div className="mb-6">
-                <ProductOptions colors={product.colors} />
-              </div>
-
-              {/* Add to Cart Button */}
+              {/* Product Options & Add to Cart */}
               <div className="mb-8">
-                <Button size="lg" className="w-full rounded-full gap-2">
-                  <ShoppingCart className="h-5 w-5" />
-                  Add to Cart
-                </Button>
+                <AddToCartButton
+                  productId={product.id}
+                  productName={product.name}
+                  productPrice={product.price}
+                  productImage={product.images[0]}
+                  colors={product.colors}
+                />
               </div>
 
               {/* Features */}

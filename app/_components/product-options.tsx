@@ -6,14 +6,23 @@ import { Button } from "@/app/_components/ui/button";
 
 interface ProductOptionsProps {
   colors: string[];
+  onColorChange?: (color: string) => void;
+  onQuantityChange?: (quantity: number) => void;
 }
 
-export function ProductOptions({ colors }: ProductOptionsProps) {
+export function ProductOptions({ colors, onColorChange, onQuantityChange }: ProductOptionsProps) {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [quantity, setQuantity] = useState(1);
 
+  const handleColorChange = (color: string) => {
+    setSelectedColor(color);
+    onColorChange?.(color);
+  };
+
   const handleQuantityChange = (delta: number) => {
-    setQuantity((prev) => Math.max(1, prev + delta));
+    const newQuantity = Math.max(1, quantity + delta);
+    setQuantity(newQuantity);
+    onQuantityChange?.(newQuantity);
   };
 
   return (
@@ -27,7 +36,7 @@ export function ProductOptions({ colors }: ProductOptionsProps) {
           {colors.map((color) => (
             <button
               key={color}
-              onClick={() => setSelectedColor(color)}
+              onClick={() => handleColorChange(color)}
               className={`px-4 py-2 rounded-md border-2 transition-all ${
                 selectedColor === color
                   ? "border-primary bg-primary/5 font-medium"

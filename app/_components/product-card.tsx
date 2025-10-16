@@ -7,6 +7,7 @@ import { Card, CardContent, CardFooter } from "@/app/_components/ui/card";
 import { Badge } from "@/app/_components/ui/badge";
 import { Button } from "@/app/_components/ui/button";
 import { Product } from "@/types/product";
+import { useCartStore } from "@/store/cart";
 
 interface ProductCardProps {
   product: Product;
@@ -14,10 +15,19 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const router = useRouter();
+  const addItem = useCartStore((state) => state.addItem);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
-    // Cart functionality would go here
+    e.stopPropagation();
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+      color: product.colors[0], // デフォルトで最初の色
+      quantity: 1,
+    });
   };
 
   const handleCategoryClick = (e: React.MouseEvent) => {
