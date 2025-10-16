@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCategories, getProductsByCategory } from "@/lib/api";
 import { ProductList } from "@/app/_components/product-list";
@@ -34,12 +33,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <Link
-              href="/"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors mb-4 inline-block"
-            >
-              ← Back to All Products
-            </Link>
             <h1 className="text-3xl md:text-4xl font-bold mb-2">{decodedCategory}</h1>
             <p className="text-muted-foreground">{filteredProducts.length} products</p>
           </div>

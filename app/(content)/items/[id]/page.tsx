@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Star, Package, Truck, Shield } from "lucide-react";
+import { Star, Package, Truck, Shield } from "lucide-react";
 import { getProducts, getProductById, getRelatedProducts } from "@/lib/api";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import { Badge } from "@/app/_components/ui/badge";
@@ -36,17 +36,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Back Button */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Products
-        </Link>
-      </div>
-
       {/* Product Detail */}
       <section className="py-8 md:py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

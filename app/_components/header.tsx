@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ShoppingBag, ShoppingCart } from "lucide-react";
+import { ShoppingBag, ShoppingCart, Home } from "lucide-react";
 import { Button } from "@/app/_components/ui/button";
 import { useCartStore } from "@/store/cart";
 
@@ -23,14 +23,21 @@ export function Header() {
           <ShoppingBag className="h-6 w-6" />
           <span className="text-xl font-semibold">DEMO STORE</span>
         </Link>
-        <Button variant="ghost" size="icon" className="relative" onClick={clearCart}>
-          <ShoppingCart className="h-5 w-5" />
-          {isClient && totalItems > 0 && (
-            <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
-              {totalItems}
-            </span>
-          )}
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="icon" asChild>
+            <Link href="/">
+              <Home className="h-5 w-5" />
+            </Link>
+          </Button>
+          <Button variant="ghost" size="icon" className="relative" onClick={clearCart}>
+            <ShoppingCart className="h-5 w-5" />
+            {isClient && totalItems > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
+                {totalItems}
+              </span>
+            )}
+          </Button>
+        </div>
       </div>
     </header>
   );
