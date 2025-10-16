@@ -1,6 +1,4 @@
 import { getProducts } from "@/lib/api";
-import { Header } from "@/app/_components/header";
-import { Footer } from "@/app/_components/footer";
 import { ProductList } from "@/app/_components/product-list";
 
 export default async function Home() {
@@ -8,8 +6,6 @@ export default async function Home() {
   const products = await getProducts();
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-
       {/* Products Grid */}
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,8 +17,6 @@ export default async function Home() {
           <ProductList initialProducts={products} itemsPerPage={12} />
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }

@@ -2,8 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Star, Package, Truck, Shield, ShoppingCart } from "lucide-react";
 import { getProducts, getProductById, getRelatedProducts } from "@/lib/api";
-import { Header } from "@/app/_components/header";
-import { Footer } from "@/app/_components/footer";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import { Badge } from "@/app/_components/ui/badge";
 import { Button } from "@/app/_components/ui/button";
@@ -39,8 +37,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-
       {/* Back Button */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         <Link
@@ -180,8 +176,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
         </section>
       )}
-
-      <Footer />
     </div>
   );
 }
